@@ -1,0 +1,5 @@
+kubernetes-kube-hp-node1.yaml
+kubernetes-kube-hp-node2.yaml
+kubernetes-kube-hp-node3.yaml
+kubernetes-kube-hp-node4.yaml
+talosconfig

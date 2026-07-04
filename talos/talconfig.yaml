@@ -19,7 +19,7 @@ cniConfig:
 
 nodes:
   - hostname: "kube-hp-node1"
-    ipAddress: "192.168.1.21"
+    ipAddress: "192.168.1.188"
     installDisk: "/dev/nvme0n1"
     machineSpec:
       secureboot: false
@@ -30,7 +30,7 @@ nodes:
           hardwareAddr: "b0:5c:da:30:69:57"
         dhcp: false
         addresses:
-          - "192.168.1.21/24"
+          - "192.168.1.188/24"
         routes:
           - gateway: "192.168.1.1"
             network: 0.0.0.0/0
@@ -38,7 +38,7 @@ nodes:
         vip:
           ip: "192.168.1.20"
   - hostname: "kube-hp-node2"
-    ipAddress: "192.168.1.22"
+    ipAddress: "192.168.1.189"
     installDisk: "/dev/nvme0n1"
     machineSpec:
       secureboot: false
@@ -49,7 +49,7 @@ nodes:
           hardwareAddr: "b0:5c:da:31:48:49"
         dhcp: false
         addresses:
-          - "192.168.1.22/24"
+          - "192.168.1.189/24"
         routes:
           - gateway: "192.168.1.1"
             network: 0.0.0.0/0
@@ -57,7 +57,7 @@ nodes:
         vip:
           ip: "192.168.1.20"
   - hostname: "kube-hp-node3"
-    ipAddress: "192.168.1.23"
+    ipAddress: "192.168.1.190"
     installDisk: "/dev/nvme0n1"
     machineSpec:
       secureboot: false
@@ -68,7 +68,7 @@ nodes:
           hardwareAddr: "f8:b4:6a:ac:d2:c3"
         dhcp: false
         addresses:
-          - "192.168.1.23/24"
+          - "192.168.1.190/24"
         routes:
           - gateway: "192.168.1.1"
             network: 0.0.0.0/0
@@ -76,7 +76,7 @@ nodes:
         vip:
           ip: "192.168.1.20"
   - hostname: "kube-hp-node4"
-    ipAddress: "192.168.1.24"
+    ipAddress: "192.168.1.191"
     installDisk: "/dev/nvme0n1"
     machineSpec:
       secureboot: false
@@ -87,7 +87,7 @@ nodes:
           hardwareAddr: "b0:5c:da:30:e8:49"
         dhcp: false
         addresses:
-          - "192.168.1.24/24"
+          - "192.168.1.191/24"
         routes:
           - gateway: "192.168.1.1"
             network: 0.0.0.0/0
