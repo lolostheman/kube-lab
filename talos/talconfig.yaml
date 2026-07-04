@@ -1,0 +1,108 @@
+---
+clusterName: kubernetes
+
+talosVersion: "${talosVersion}"
+kubernetesVersion: "${kubernetesVersion}"
+
+endpoint: https://192.168.1.20:6443
+additionalApiServerCertSans: &sans
+  - "127.0.0.1"
+  - "192.168.1.20"
+additionalMachineCertSans: *sans
+
+clusterPodNets: ["10.42.0.0/16"]
+clusterSvcNets: ["10.43.0.0/16"]
+
+# Disable built-in CNI to use Cilium
+cniConfig:
+  name: none
+
+nodes:
+  - hostname: "kube-hp-node1"
+    ipAddress: "192.168.1.21"
+    installDisk: "/dev/nvme0n1"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/5bd43b36a18cea0519a8c7dd6d7f3c8c7ed808e71b625268d28e4bec519f9774
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "b0:5c:da:30:69:57"
+        dhcp: false
+        addresses:
+          - "192.168.1.21/24"
+        routes:
+          - gateway: "192.168.1.1"
+            network: 0.0.0.0/0
+        mtu: 1500
+        vip:
+          ip: "192.168.1.20"
+  - hostname: "kube-hp-node2"
+    ipAddress: "192.168.1.22"
+    installDisk: "/dev/nvme0n1"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/5bd43b36a18cea0519a8c7dd6d7f3c8c7ed808e71b625268d28e4bec519f9774
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "b0:5c:da:31:48:49"
+        dhcp: false
+        addresses:
+          - "192.168.1.22/24"
+        routes:
+          - gateway: "192.168.1.1"
+            network: 0.0.0.0/0
+        mtu: 1500
+        vip:
+          ip: "192.168.1.20"
+  - hostname: "kube-hp-node3"
+    ipAddress: "192.168.1.23"
+    installDisk: "/dev/nvme0n1"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/5bd43b36a18cea0519a8c7dd6d7f3c8c7ed808e71b625268d28e4bec519f9774
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "f8:b4:6a:ac:d2:c3"
+        dhcp: false
+        addresses:
+          - "192.168.1.23/24"
+        routes:
+          - gateway: "192.168.1.1"
+            network: 0.0.0.0/0
+        mtu: 1500
+        vip:
+          ip: "192.168.1.20"
+  - hostname: "kube-hp-node4"
+    ipAddress: "192.168.1.24"
+    installDisk: "/dev/nvme0n1"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/5bd43b36a18cea0519a8c7dd6d7f3c8c7ed808e71b625268d28e4bec519f9774
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "b0:5c:da:30:e8:49"
+        dhcp: false
+        addresses:
+          - "192.168.1.24/24"
+        routes:
+          - gateway: "192.168.1.1"
+            network: 0.0.0.0/0
+        mtu: 1500
+
+# Global patches
+patches:
+  - "@./patches/global/machine-files.yaml"
+  - "@./patches/global/machine-kubelet.yaml"
+  - "@./patches/global/machine-network.yaml"
+  - "@./patches/global/machine-sysctls.yaml"
+  - "@./patches/global/machine-time.yaml"
+
+# Controller patches
+controlPlane:
+  patches:
+    - "@./patches/controller/cluster.yaml"
+
